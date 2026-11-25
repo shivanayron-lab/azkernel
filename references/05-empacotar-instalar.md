@@ -44,7 +44,22 @@ Exemplo de `config.json`:
 ```
 Teste o zip com `twrp install /sdcard/<zip>` pelo adb, ou pela tela do TWRP, e depois boote.
 
-## 5.4 Release
+## 5.4 ROM pronta + GApps e Magisk num TWRP antigo
+
+Caso real (Galaxy Tab Pro 8.4 SM-T320, LineageOS 21 + MindTheGapps 14 + Magisk 31.1 pelo TWRP 3.7.0):
+- **GApps recentes falham com "Could not mount /mnt/system"** quando o `recovery.fstab` do TWRP do aparelho está no formato antigo, ou quando falta `/dev/block/bootdevice/by-name`. Contorno no shell do TWRP, sem gravar nada no recovery (some ao reiniciar):
+  ```
+  mkdir -p /dev/block/bootdevice
+  ln -s /dev/block/platform/<controlador>/by-name /dev/block/bootdevice/by-name   # ex.: msm_sdcc.1
+  cp /etc/recovery.fstab /etc/recovery.fstab.bak
+  sed -i '\|^/system|d' /etc/recovery.fstab     # tira só a linha do /system
+  twrp install /sdcard/<gapps>.zip
+  cp /etc/recovery.fstab.bak /etc/recovery.fstab
+  ```
+- **Magisk sem instalador:** tire o `boot.img` de dentro do zip da ROM instalada, aplique o patch (app do Magisk no aparelho, ou `boot_patch.sh` do próprio zip do Magisk) e grave o resultado na partição boot com `flash_verify.sh`. Guarde o boot original junto. Depois, libere o `shell` na aba Superusuário do Magisk.
+- Instale a ROM, os GApps e o Magisk **antes** do primeiro boot da ROM, ou faça um wipe de dados depois dos GApps. GApps instalados depois de o sistema ter iniciado sem eles costumam travar o assistente.
+
+## 5.5 Release
 
 - Nome com data e número (`r1`, `r2`...). A cada correção, uma release nova. Não sobrescreva a anterior até a nova ser testada; depois, apague a antiga para ninguém postar a errada.
 - Publique o sha256 junto com o zip, e um README com: o que funciona, o que não funciona, como instalar, como voltar ao stock e o histórico de mudanças.

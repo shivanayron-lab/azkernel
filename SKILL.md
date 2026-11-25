@@ -1,6 +1,6 @@
 ---
 name: azkernel
-description: Especialista em analisar, portar, compilar, depurar e empacotar kernels e ROMs modificadas (custom ROM, LineageOS, port de ROM de um aparelho irmão, kernel mod, ramdisk, boot.img, system.img, zip de TWRP) para qualquer Android. Use sempre que a pessoa quiser criar ou portar uma ROM, compilar ou modificar um kernel, mexer em boot.img/ramdisk/fstab/init.rc, consertar algo que não funciona numa ROM custom (tela preta, bootloop, kernel panic, Wi-Fi, áudio, câmera, sensores, tecla, app que não toca vídeo), extrair ou reempacotar imagens de firmware, ou montar um zip instalável pelo TWRP, mesmo sem dizer "kernel". Também para "port ROM", "build kernel", "custom kernel", "bootloop after flashing", "unpack boot.img". Para só otimizar, debloat ou instalar uma ROM pronta, prefira a skill android-optimizer.
+description: Especialista em analisar, portar, compilar, depurar e empacotar kernels e ROMs modificadas (custom ROM, LineageOS, port de ROM de um aparelho irmão, kernel mod, ramdisk, boot.img, system.img, zip de TWRP) para qualquer Android. Use sempre que a pessoa quiser criar ou portar uma ROM, compilar ou modificar um kernel, mexer em boot.img/ramdisk/fstab/init.rc, consertar algo que não funciona numa ROM custom (tela preta, bootloop, kernel panic, Wi-Fi, áudio, câmera, sensores, tecla, app que não toca vídeo), extrair ou reempacotar imagens de firmware, montar um zip instalável pelo TWRP, instalar GApps/Magisk num TWRP antigo, ou trocar a animação ou o logo de boot, mesmo sem dizer "kernel". Também para "port ROM", "build kernel", "custom kernel", "bootloop after flashing", "unpack boot.img". Para só otimizar, debloat ou instalar uma ROM pronta, prefira a skill android-optimizer.
 ---
 
 # AZkernel: kernels e ROMs mod para Android
@@ -28,7 +28,7 @@ Siga as fases em ordem. Leia a referência de cada fase quando chegar nela.
 4. **Kernel** → `references/03-kernel.md`: fonte, defconfig, porte de arquivos de placa/DT e drivers, cmdline do bootloader, compilação e o primeiro boot.
 5. **ROM** → `references/04-rom.md`: imagem de sistema (resize, firmware, HALs, build.prop, rótulos SELinux), ramdisk (fstab, init.rc, ueventd), montagem do boot.img com `scripts/bootimg.py`.
 6. **Teste e depuração** → `references/07-depuracao.md`, sempre consultando a tabela de sintomas em `references/06-sintomas.md` antes de investigar do zero.
-7. **Empacotar e instalar** → `references/05-empacotar-instalar.md` e `scripts/mkzip.py` (zip de TWRP que confere modelo, partições e hashes).
+7. **Empacotar e instalar** → `references/05-empacotar-instalar.md` e `scripts/mkzip.py` (zip de TWRP que confere modelo, partições e hashes). ROM pronta com GApps e Magisk num TWRP antigo: item 5.4. Animação ou logo de boot: `references/08-boot-logo.md`.
 8. **Release e registro**: gere o zip, anote sha256, versão e o que mudou. Mantenha um script único que refaz a ROM do zero (como o `mkrom.sh` do T210), para cada correção virar uma release nova e reproduzível. Grave na memória do projeto os achados novos e, se forem gerais, acrescente-os em `references/06-sintomas.md`.
 
 ## Regras que evitaram horas de retrabalho

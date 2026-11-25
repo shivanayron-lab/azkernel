@@ -49,3 +49,13 @@ Consulte esta tabela antes de investigar do zero. Os itens marcados (T210) acont
 | Modelo errado na loja ou no PC | `default.prop` sobrepondo o `build.prop`; `iProduct` USB do irmão | Ajustar os dois e o init.rc |
 | `adb reboot recovery` cai no Android | Bootloader ignora o pedido às vezes | Esperar ~15 s e repetir, ou combinação de teclas |
 | Relógio pulando atrapalha testes | NTP ajustando no meio | Laços por contador, não por `date` |
+
+## Instalação e diagnóstico
+
+| Sintoma | Causa provável | Correção |
+|---|---|---|
+| GApps no TWRP: "Could not mount /mnt/system" | `recovery.fstab` do TWRP em formato antigo ou sem `bootdevice/by-name` (SM-T320, MindTheGapps 14) | Link `bootdevice/by-name` e tirar a linha `/system` do fstab só durante a instalação (05, item 5.4) |
+| Aparelho "cai" do adb no meio do trabalho | Quase sempre o **cabo ou a porta USB**, não o aparelho (SM-T320) | `adb shell cat /proc/uptime`: se o tempo não zerou, o aparelho não reiniciou. Troque o cabo antes de investigar o kernel |
+| Load average 8 ou mais com o aparelho ocioso | Threads do kernel em estado D (espera de I/O) entram na conta, por exemplo `dbs_sync` e `mdss` (SM-T320) | Olhe o uso real da CPU (`top`, `/proc/stat`) e `ps -A -o stat,comm \| grep '^D'`. Não "otimize" por esse número |
+| Animação de boot nova não aparece (volta a padrão) | zip comprimido, resolução na orientação errada ou caminho que a versão não lê | `zip -0`, resolução da orientação em que o aparelho liga (08) |
+| Com `ro.kernel.qemu=1` a tela fica preta | É o efeito do truque do root temporário: o Android acha que é emulador | Esperar o adb (sobe como root) e apagar `/data/local.prop` (08, item 8.3) |

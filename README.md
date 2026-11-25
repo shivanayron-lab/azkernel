@@ -12,6 +12,8 @@ Nasceu do porte do LineageOS 14.1 (Android 7.1.2) para o Galaxy Tab 3 7.0 SM-T21
 - Monta system.img e ramdisk mantendo os rótulos SELinux, corrige fstab, init e ueventd.
 - Depura com uma tabela de sintomas tirados de casos reais (tela preta, panics, IRQ errada, loopback desligado, áudio, câmera, Bluetooth, teclas...).
 - Gera um zip de TWRP que confere modelo, partições e hashes antes de gravar e relê tudo depois.
+- Instala ROM pronta com GApps e Magisk mesmo num TWRP antigo (contorno do "Could not mount /mnt/system").
+- Troca a animação de boot (no Android 4.x até sem root) e o logo fixo do bootloader, com backup conferido.
 - Sempre pergunta antes de gravar partições, exige backup conferido e nunca ajuda a burlar FRP, bloqueios ou IMEI.
 
 ## Instalação
@@ -30,6 +32,7 @@ Depois, no Claude Code, peça algo como "quero portar uma ROM para o meu tablet"
 | `SKILL.md` | Princípios e fluxo de trabalho |
 | `references/01-analise.md` … `07-depuracao.md` | Uma referência por etapa |
 | `references/06-sintomas.md` | Sintoma → causa → correção |
+| `references/08-boot-logo.md` | Animação e logo de boot |
 | `references/caso-t210.md` | O porte completo do SM-T210 como exemplo |
 | `scripts/recon.sh` | Levantamento do aparelho por adb, somente leitura |
 | `scripts/bootimg.py` | info / unpack / repack de boot.img (cabeçalho v0 a v2) |
